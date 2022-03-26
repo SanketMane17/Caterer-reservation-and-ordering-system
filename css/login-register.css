@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+body {
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #7fcdbe1a;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-box {
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+}
+
+#email {
+    line-height: 0px;
+}
+
+#user, #password {
+    line-height: 0px;
+}
+
+h2 {
+    margin: auto;
+    width: 50;
+    margin-bottom: 10px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 14px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+p {
+    margin: auto;
+    width: 50;
+}
+
+a {
+    color: #326a5fe6;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #3d4b48e6;
+}
+
+.error-border {
+    border: 1px solid red;
+}
+
+#user-error,
+#email-error,
+#contact-error,
+#pwd-error,
+#pwd1-error, 
+#contact-invalid,
+#email-invalid,
+#user-invalid, 
+#fname-invalid, 
+#lname-invalid, 
+#pwd-invalid,
+#price-error,
+#occasion-invalid,
+#menu-invalid,
+#location-invalid,
+#cphone-invalid,
+#cname-invalid,
+#status-invalid{
+    color: red;
+    font-size: 12px;
+    margin-left: 3px;
+    margin-top: -4px;
+    display: none;
+    float: left;
+}
+
+#image {
+    border: none;
+    padding: 1px;
+    border-radius: 0px;
+}
+
+#pwd-invalid {
+    line-height: 12px;
+    float: right;
+    margin-top: -8px;
+}
+
+.btn {
+    width: 100%;
+    background-color: #67e2d0d1;
+    color: black;
+    padding: 13px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background-color: #b5ece4;;
+}
+
+@media (max-width: 810px) {
+    .input-box {
+        width: 280px;
+    }
+}
+
+@media (max-width: 344px) {
+    .input-box {
+        width: 80%;
+    }
+    input {
+        height: 36px;
+    }
+}

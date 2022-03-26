@@ -1,0 +1,502 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: sans-serif;
+}
+    
+#navbar{
+    display: flex;
+    align-items: center;
+    background-color: #b5ece4;
+    height: 9vh;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#logo{
+    margin: 5px 56px;
+}
+
+#logo img{
+    height: 45px;
+    margin: 3px 6px;
+    filter: invert(100%);
+}
+
+#navbar ul{
+    display: flex;
+}
+
+#navbar ul li{ 
+    list-style: none;
+    font-size: 18px;
+}
+
+#navbar ul li a {
+    display: block;
+    color: #414a48;
+    padding: 18px 15px;
+    text-decoration: none;
+}
+
+#navbar ul li a:hover{
+    color: black;
+}
+
+
+#right-box {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 52px;
+}
+
+.btn a {
+    display: block;
+    color: black;
+    padding: 7px 15px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#right-box button {
+    border: 1px solid black;
+    background-color: #b5ece4;
+    margin: 3px 8px;
+}
+
+#right-box .btn :hover {
+    background-color: white;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.uname {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+
+.logout-content a {
+    text-decoration: none;
+    color: black;
+}
+
+.container-1 {
+    width: 91%;
+    height: 91vh;
+    margin: auto;
+    color: #444e4d;
+    background-color: #e1f4ee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-2 {
+    width: 91%;
+    height: 80vh;
+    margin: auto;
+    color: #444e4d;
+    background-color: #e1f4ee;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-2 h1 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 13px;
+    text-decoration: underline;
+}
+
+.about-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-content {
+    width: 66%;
+}
+
+.about-content p {
+    text-align: left;
+    width: 72%;
+    margin: auto;
+    font-size: 18px;
+    padding: 9px 0px;
+    line-height: 25px;
+}
+
+.about-img {
+    background: white;
+    padding: 36px;
+}
+
+.intro {
+    position: relative;
+    top: 85px;
+}
+
+.intro h1 {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.sections {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 82vh;
+}
+
+.section {
+    width: 182px;
+    height: 250px;
+    margin: 7px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.section img {
+    width: 158px;
+    height: 141px;
+    border-radius: 50%;
+}
+
+.order-btn {
+    position: relative;
+    bottom: 82px;
+}
+
+.schedule-btn {
+    width: 110px;
+    padding: 8px;
+    width: 110px;
+    padding: 8px;
+    background: #e1f4ee;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.schedule-btn:hover {
+    background-color: white;
+}
+
+.service {
+    display: flex;
+    width: 91%;
+    margin: auto;
+    background-color: #e1f4ee;
+}
+
+.service p {
+    width: 50vw;
+    font-size: 18px;
+}
+
+.service img {
+    width: 30vw;
+    padding: 35px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content h1 {
+    padding-bottom: 10px;
+}
+
+.reservation {
+    width: 91%;
+    height: 92vh;
+    margin: auto;
+    background-color: #e1f4ee;
+}
+
+.reservation h1 { 
+    color: #414a48;
+    position: relative;
+    top: 53px;
+    left: 104px;
+    width: 240px;
+}
+
+.form {
+    display: flex;
+}
+
+.form img {
+    height: 73vh;
+    width: 34vw;
+    position: relative;
+    top: 29px;
+    left: 15px;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.form table {
+    padding: 67px 100px;
+}
+
+.form table td {
+    padding: 10px 5px;
+}
+
+.form table td input, .form table td textarea, .form table select {
+    padding: 6px;
+    width: 22vw;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+footer{
+    background: #b5ece4;
+    color: black;
+    padding: 13px;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+.form .button {
+    width: 40%;
+    padding: 6px;
+    background: #e1f4ee;
+    border: 1px solid black;
+    font-size: 14px;
+    margin-right: 6px;
+}
+
+.form .button a {
+    text-decoration: none;
+    color: black;
+}
+
+.form .button:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+#fname-invalid, #lname-invalid, #contact-invalid, #email-invalid,
+#occasion-invalid,#menu-invalid, #service-invalid,
+#peopleCount-invalid, #budget-invalid{
+    color: red;
+    font-size: 13px;
+    display: none;
+    margin-top: 3px;
+}
+
+.error-border {
+    border: 1px solid red;
+}
+
+.orders{
+    height: 92vh;
+    width: 91%;
+    margin: auto;
+    background-color: #e1f4ee;
+}
+
+.orders-table {
+    padding: 0px;
+    border-collapse: collapse;
+}
+
+.orders-table thead {
+    background-color: #c4d5d6;
+}
+
+.orders-table th {
+    text-align: center;
+    padding: 15px 10px;
+}
+
+.orders-table td {
+    text-align: center;
+    font-size: 15px;
+}
+
+.admin h1 {
+    text-align: center;
+    padding: 19px;
+    text-decoration: underline;
+    font-size: x-large;
+}
+
+.myorders {
+    width: 91%;
+    margin: auto;
+    background-color: #e1f4ee;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.myorder {
+    background-color: white;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    display: inline-block;
+    margin: 46px;
+}
+
+.myorder th {
+    text-align: right;
+    padding: 4px;
+}
+
+.myorder td {
+    padding-right: 20px;
+}
+
+#order-id {
+    text-align: center;
+    font-size: 19px;
+    background: aliceblue;
+    padding: 15px
+}
+
+.table-btn th {
+    text-align: center;
+    font-size: 16px;
+    padding: 15px;
+}
+
+.table-btn button {
+    width: 110px;
+    padding: 8px;
+    width: 110px;
+    padding: 8px;
+    border: 1px solid black;
+}
+
+.table-btn button:hover {
+    cursor: pointer;
+}
+
+.table-btn #btn-1 {
+    border: none;
+    background: #5b8c41;
+    color: white;
+}
+
+.table-btn #btn-2 {
+    border: none;
+    background: #f3105fe0;
+    color: white;
+}
+
+.no-order {
+    margin: auto;
+    height: 83vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.orders-btn {
+    margin: auto;
+    width: 28%;
+}
+
+.orders-btn button {
+    border: none;
+    color: black;
+    margin: 3px 8px;
+    padding: 12px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    font-size: 16px;
+    border: 2px solid white;
+}
+
+.orders-btn button:hover {
+    border: 2px solid;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgb(253, 253, 253);
+}
+
+.user-orders {
+    width: 91%;
+    margin: auto;
+    background-color: #e1f4ee;
+}
+
+.reports {
+    width: 91%;
+    margin: auto;
+    background-color: #e1f4ee;
+    height: 91vh;
+}
+
+.reports p {
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding: 18px;
+    text-align: right;
+    color: #414a48;
+}
+
+.caterers {
+    width: 91%;
+    margin: auto;
+    background-color: #e1f4ee;
+    padding: 3px;
+}
+
+.caterer {
+    background-color: white;
+    height: 200px;
+    width: 70vw;
+    margin: 12px auto;
+    display: flex;
+    align-items: center;
+}
+
+.caterer img {
+    width: 322px;
+    border-radius: 7px;
+}
+
+.caterer div {
+    padding: 19px;
+}
+
+.caterer-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    line-height: 22px;
+}
+
+.caterer button {
+    height: 35px;
+    width: 122px;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(231, 46, 119);
+    position: relative;
+    right: -405px;
+}

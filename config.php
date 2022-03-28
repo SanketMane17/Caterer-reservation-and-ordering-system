@@ -8,9 +8,10 @@
     catch(PDOException $e){
         echo "
             <script>
-                alert('Connection unsuccessful');
-            </script>;
+                alert('Connection unsuccessful')
+            </script>
         ";
+        echo $e->getMessage();
         die();
     }
 

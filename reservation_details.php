@@ -1,10 +1,11 @@
 <?php
-session_start();
-error_reporting(0);
+    session_start();
+    error_reporting(0);
+    include 'config.php';
 
-if(!isset($_SESSION['fname'])) {
-    header("Location:reservation.php");
-}
+    if(!isset($_SESSION['fname'])) {
+        header("Location:reservation.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +18,21 @@ if(!isset($_SESSION['fname'])) {
     <title>Reservation Details</title>
     <link href="css/style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
     <script src="js/script.js"></script>
+    <script>
+        function getCaterers(data) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("caterer").innerHTML = xhr.responseText;
+                }
+            }
+
+            xhr.open("POST", "available_caterers.php", true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send("option="+data);
+        }
+    </script>
 </head>
 
 <body>
@@ -109,7 +125,7 @@ if(!isset($_SESSION['fname'])) {
                             <td><label for="occasion">Occasion</label>
                             </td>
                             <td>
-                            <select name="occasion" id="occasion" style="width:319px;">
+                            <select name="occasion" id="occasion" style="width:319px;" onchange="getCaterers(this.value)">
                                 <option value="one">-Select One-</option>
                                 <option <?php if($_POST['occasion'] === 'wedding') echo "selected='selected'"?> value="wedding">Wedding</option>
                                 <option <?php if($_POST['occasion'] === 'corporate') echo "selected='selected'"?> value="corporate">Corporate</option>
@@ -117,6 +133,16 @@ if(!isset($_SESSION['fname'])) {
                                 <option <?php if($_POST['occasion'] === 'celebration') echo "selected='selected'"?> value="celebration">Celebration Event</option>
                             </select>
                             <div id="occasion-invalid">Please Select at least one Occasion.</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="caterer">Availabe Caterers</label>
+                    </td>
+                    <td>
+                        <select name="caterer" id="caterer" style="width:319px;"> 
+                            <option value="one">-Select One-</option>
+                        </select>
+                        <div id="caterer-invalid">Please Select at least one Caterer.</div>
                             </td>
                         </tr>
                         <tr>
@@ -189,7 +215,6 @@ if(!isset($_SESSION['fname'])) {
     <footer> <small>&copy; Copyright 2022, Caterer Reservation and Ordering System. All Rights Reserved</small> </footer>
 
     <?php
-    include 'config.php';
     if (isset($_POST['next'])) {
 
         if($_POST['occasion'] === "one") {
@@ -215,6 +240,15 @@ if(!isset($_SESSION['fname'])) {
             <script>
                 document.getElementById("service").classList.add("error-border");
                 document.getElementById("service-invalid").style.display = "block";
+            </script>
+            <?php
+        }
+
+        else if($_POST['caterer'] === "one") {
+            ?>
+            <script>
+                document.getElementById("caterer").classList.add("error-border");
+                document.getElementById("caterer-invalid").style.display = "block";
             </script>
             <?php
         }
@@ -254,10 +288,16 @@ if(!isset($_SESSION['fname'])) {
             $_SESSION['menu'] = $_POST['menu'];
             $_SESSION['peopleCount'] = $_POST['peopleCount'];
             $_SESSION['budget'] = $_POST['budget'];
+            $_SESSION['caterer'] = $_POST['caterer'];
+            $caterer = $_POST['caterer'];
 
-            $sql = "INSERT INTO reservation (fname, lname, address, contact, email, venue, date, time, occasion, menu, service, peoplecount, budget, uname) VALUES  (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $selectCID = $conn->query("SELECT c_id FROM caterer_registration WHERE c_name = '$caterer'");
 
-            $conn->prepare($sql)->execute([$_SESSION['fname'], $_SESSION['lname'], $_SESSION['address'],$_SESSION['contact'], $_SESSION['email'], $_SESSION['venue'], $_SESSION['date'], $_SESSION['time'], $_SESSION['occasion'], $_SESSION['menu'], $_SESSION['service'], $_SESSION['peopleCount'], $_SESSION['budget'], $_SESSION['username']]);
+            $row = $selectCID->fetch(PDO::FETCH_ASSOC);
+
+            $sql = "INSERT INTO reservation (fname, lname, address, contact, email, venue, date, time, occasion, menu, service, peoplecount, budget, caterer, uname, c_id) VALUES  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+            $conn->prepare($sql)->execute([$_SESSION['fname'], $_SESSION['lname'], $_SESSION['address'],$_SESSION['contact'], $_SESSION['email'], $_SESSION['venue'], $_SESSION['date'], $_SESSION['time'], $_SESSION['occasion'], $_SESSION['menu'], $_SESSION['service'], $_SESSION['peopleCount'], $_SESSION['budget'], $_SESSION['caterer'],  $_SESSION['username'], $row['c_id']]);
 
             ?>
             <script>

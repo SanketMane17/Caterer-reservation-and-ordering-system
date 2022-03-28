@@ -19,7 +19,7 @@
             <h2>Caterer Registration</h2>
 
             <div id="c-name">
-                <input type="text" name="c_name" id="cname-input" placeholder="Caterer Name" value="<?php 
+                <input type="text" name="c_name" id="cname-input" placeholder="Catering Name" value="<?php 
                 if(isset($_POST['c_name'])){
                     echo $_POST['c_name'];
                 }?>">
@@ -88,6 +88,13 @@
     <?php
     include 'config.php';
 
+    // Uploading image to the server
+    if(isset($_FILES['image'])) {
+        $file_name = $_FILES['image']['name'];
+        $file_temp = $_FILES['image']['tmp_name'];
+        move_uploaded_file($file_temp, "upload/". $file_name);
+    }
+
     if (isset($_POST['register'])) {
         $c_name = $_POST['c_name'];
         $c_phone = $_POST['c_phone'];
@@ -97,10 +104,7 @@
         $about = $_POST['about'];
         $price = $_POST['price'];
         $c_status = $_POST['status'];
-
-        // Image uploading
         $filename = $_FILES['image']['name'];
-        $path = "upload/".$filename;
         
 
         if(!preg_match("/^[0-9]+$/", $c_phone) && !empty($c_phone)) {
@@ -157,9 +161,6 @@
         }
 
         else {
-
-            move_uploaded_file($filename, $path);
-
             $sql = "INSERT INTO caterer_registration (c_name, c_phone, location, menu_type, occasion_type, price, about, filename, c_status) VALUES (?,?,?,?,?,?,?,?,?)";
             $conn->prepare($sql)->execute([$c_name, $c_phone, $location, $menu_type, $occasion_type, $price, $about, $filename, $c_status]);
             ?>

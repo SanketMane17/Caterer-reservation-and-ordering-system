@@ -175,6 +175,10 @@ include("config.php");
                     <th>Budget : </th>
                     <td><?php echo $row['budget']; ?></td>
                 </tr>
+                <tr>
+                    <th>By Caterer : </th>
+                    <td><?php echo $row['caterer']; ?></td>
+                </tr>
                 <tr class="table-btn"
                 <?php
                     if($row['status'] === 'confirmed') {

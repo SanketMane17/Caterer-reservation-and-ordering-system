@@ -212,6 +212,10 @@ include("config.php");
                             <td><?php echo $row['uname']; ?></td>
                         </tr>
                         <tr>
+                            <th>By Caterer : </th>
+                            <td><?php echo $row['caterer']; ?></td>
+                        </tr>
+                        <tr>
                             <th style="padding-bottom: 10px;">Status : </th>
                             <td
                                 <?php

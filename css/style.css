@@ -301,7 +301,7 @@ footer{
 
 #fname-invalid, #lname-invalid, #contact-invalid, #email-invalid,
 #occasion-invalid,#menu-invalid, #service-invalid,
-#peopleCount-invalid, #budget-invalid{
+#peopleCount-invalid, #budget-invalid, #caterer-invalid{
     color: red;
     font-size: 13px;
     display: none;
@@ -462,11 +462,11 @@ footer{
     margin: auto;
     background-color: #e1f4ee;
     padding: 3px;
+    min-height: 83vh;
 }
 
 .caterer {
     background-color: white;
-    height: 200px;
     width: 70vw;
     margin: 12px auto;
     display: flex;
@@ -479,7 +479,7 @@ footer{
 }
 
 .caterer div {
-    padding: 19px;
+    padding: 9px;
 }
 
 .caterer-info {
@@ -498,5 +498,16 @@ footer{
     border: none;
     background-color: rgb(231, 46, 119);
     position: relative;
-    right: -405px;
+    left: 474px;
+    bottom: 12px;
+}
+
+.caterer button:hover {
+    cursor: pointer;
+    background-color: rgb(245 71 140);
+}
+
+.caterer-info p {
+    display: flex;
+    align-items: center;
 }

@@ -12,25 +12,6 @@ session_start();
     <title>Caterer Reports</title>
     <link href="css/style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />    
     <script src="js/script.js"></script>
-    <script>
-        function showAvailabilty(cid) {
-            <?php
-                include "config.php";
-                $sqlDate = $conn->query("SELECT date FROM reservation, caterer_registration WHERE reservation.c_id = caterer_registration.c_id AND reservation.c_id = '3'");
-
-                if($sqlDate->rowCount() > 0) {
-                    ?>
-                    alert("Enguaged");
-                    <?php
-                }
-                else {
-                    ?>
-                    alert("Available");
-                    <?php
-                }
-            ?>
-        }
-    </script>
 </head>
 
 <body> 
@@ -95,13 +76,13 @@ session_start();
                 <img src="upload/<?php echo $row['filename'];?>">
             </div>
             <div class="caterer-info">
-                <h3><?php echo ucwords($row['c_name']);?></h3>
+                <h3><?php echo ucwords($row['c_name'])."(".ucfirst($row['occasion_type']).")";?></h3>
                 <p><img style="width: 17px;" src="img/location.png"> <?php echo $row['location'];?></p>
                 <p>Starting Price (<?php echo ucfirst($row['menu_type']);?> Menu)</p>
                 <h4>Rs.<?php echo $row['price'];?> onwards</h4>
                 <p><?php echo $row['about'];?></p>
                 <p><img style="width: 24px;" src="img/phone.png"><?php echo $row['c_phone'];?></p>
-                <button onclick="showAvailabilty(<?php echo $row['c_id'];?>)">Check Availability</button>
+                <p id="status">Status : <?php echo ucfirst($row['c_status']);?></p>
             </div>
         </div>
         <?php

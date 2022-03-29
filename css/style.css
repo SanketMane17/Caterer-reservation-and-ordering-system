@@ -487,7 +487,7 @@ footer{
     flex-direction: column;
     justify-content: center;
     align-items: baseline;
-    line-height: 22px;
+    line-height: 20px;
 }
 
 .caterer button {
@@ -510,4 +510,11 @@ footer{
 .caterer-info p {
     display: flex;
     align-items: center;
+}
+
+#status {
+    font-size: 18px;
+    margin-top: 11px;
+    background: aliceblue;
+    padding: 4px 10px;
 }

@@ -357,7 +357,6 @@ footer{
 .myorder {
     background-color: white;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    display: inline-block;
     margin: 46px;
 }
 
@@ -517,4 +516,25 @@ footer{
     margin-top: 11px;
     background: aliceblue;
     padding: 4px 10px;
+}
+
+.report {
+    font-family: sans-serif;
+    border-collapse: collapse;
+    width: 85%;
+    margin: 14px auto;
+}
+  
+.report td, .report th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.report th {
+    background-color: #dddddd;
+}
+
+.report td {
+    background-color: white;
 }

@@ -68,6 +68,62 @@ error_reporting(0);
     </nav>
     <section class="reports">
         <p><?php echo date("d/m/Y");?></p>
+
+        <table class="report">
+            <tr>
+                <th>Order ID</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Event Date</th>
+                <th>Order Status</th>
+                <th>Catering Service</th>
+                <th>Earning</th>
+            </tr>
+            <?php
+                include "config.php";
+
+                $sql = $conn->query("SELECT * FROM reservation, caterer_registration WHERE reservation.c_id = caterer_registration.c_id AND status = 'confirmed'");
+                while($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['r_id'];?></td>
+                        <td><?php echo $row['fname']." ".$row['lname'];?></td>
+                        <td><?php echo $row['contact'];?></td>
+                        <td><?php echo $row['date'];?></td>
+                        <td><?php echo $row['status'];?></td>
+                        <td><?php echo $row['caterer'];?></td>
+                        <td><?php echo $row['budget'];?></td>
+                    </tr>
+                    <?php
+                }
+            ?>
+        </table>
+
+        <table class="report" style="width: 50%;">
+            <?php
+                $totalOrders = $conn->query("SELECT count(*) AS totalOrders FROM reservation WHERE status = 'confirmed'");
+                $vegOrders = $conn->query("SELECT count(menu_type) AS vegOrders FROM caterer_registration, reservation WHERE caterer_registration.c_id = reservation.c_id AND menu_type = 'veg' AND reservation.status = 'confirmed'");
+                $nonVegOrders = $conn->query("SELECT count(menu_type) AS nonVegOrders FROM caterer_registration, reservation WHERE caterer_registration.c_id = reservation.c_id AND menu_type = 'non-veg' AND reservation.status = 'confirmed'");
+                $totalRevenue = $conn->query("SELECT SUM(budget) as totalRevenue FROM caterer_registration, reservation WHERE caterer_registration.c_id = reservation.c_id AND reservation.status = 'confirmed'");
+                $td1 = $totalOrders->fetch(PDO::FETCH_ASSOC);
+                $td2 = $vegOrders->fetch(PDO::FETCH_ASSOC);
+                $td3 = $nonVegOrders->fetch(PDO::FETCH_ASSOC);
+                $td4 = $totalRevenue->fetch(PDO::FETCH_ASSOC);
+
+                ?>
+                <tr>
+                    <th>Total Orders</th>
+                    <th>Veg Orders</th>
+                    <th>Non-veg Orders</th>
+                    <th>Total Revenue</th>
+                </tr>
+                <tr>
+                    <td><?php echo $td1['totalOrders'];?></td>
+                    <td><?php echo $td2['vegOrders'];?></tc>
+                    <td><?php echo $td3['nonVegOrders'];?></td>
+                    <td><?php echo $td4['totalRevenue'];?></td>
+                </tr>
+        </table>
     </section>
 </body>
 

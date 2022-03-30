@@ -65,6 +65,7 @@ session_start();
     <section class="caterers">
     <?php
     include("config.php");
+    $currentDate = date("Y/d/m");
     $sql = $conn->query("SELECT * FROM caterer_registration");
     $count = $sql->rowCount();
     if($count > 0) {

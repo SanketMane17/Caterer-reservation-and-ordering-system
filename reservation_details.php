@@ -299,8 +299,8 @@
 
             $conn->prepare($sql)->execute([$_SESSION['fname'], $_SESSION['lname'], $_SESSION['address'],$_SESSION['contact'], $_SESSION['email'], $_SESSION['venue'], $_SESSION['date'], $_SESSION['time'], $_SESSION['occasion'], $_SESSION['menu'], $_SESSION['service'], $_SESSION['peopleCount'], $_SESSION['budget'], $_SESSION['caterer'],  $_SESSION['username'], $row['c_id']]);
 
-            $date = $_POST['date'];
-            $updateStatus = $conn->query("update caterer_registration, reservation set c_status = 'not-available' where caterer_registration.c_id = reservation.c_id AND reservation.date = '$date'")
+            $date = date("Y/M/D");
+            $updateStatus = $conn->query("update caterer_registration, reservation set c_status = 'available' where caterer_registration.c_id = reservation.c_id AND reservation.date <> '$date'")
 
             ?>
             <script>

@@ -15,7 +15,7 @@
 
 <body>
     <form action="<?php $_SERVER['PHP_SELF'];?>" method="POST" class="form-container" enctype="multipart/form-data">
-        <div class="input-box">
+        <div class="input-box" style="margin: 42px;">
             <h2>Caterer Registration</h2>
 
             <div id="c-name">
@@ -41,14 +41,21 @@
                 }?>">
                 <div id="location-invalid">Invalid location.</div>
             </div>
+
             <div id="menu-type">
                 <select name="menu_type" id="menu_type">
                     <option value="one">-Select menu type-</option>
                     <option <?php if($_POST['menu_type'] === 'veg') echo "selected='selected'"?> value="veg">Veg</option>
                     <option <?php if($_POST['menu_type'] === 'non-veg') echo "selected='selected'"?> value="non-veg">Non-veg</option>
+                    <option <?php if($_POST['menu_type'] === 'both') echo "selected='selected'"?> value="both">Both(veg/non-veg)</option>
                 </select>
                 <div id="menu-invalid">Please Select at least one menu type.</div>
             </div>
+
+            <div id="about">
+                <textarea name="menu_item" cols="30" rows="5" placeholder="Possible menu items(seprate with commas)"></textarea>
+            </div>
+
             <div class="occasion-type">
                 <select name="occasion_type" id="occasion_type">
                     <option value="one">-Select Occasion type-</option>
@@ -73,15 +80,10 @@
                 <label for="image">Choose Image</label>
                 <input type="file" name="image" id="image">
             </div>
-            <div class="status">
-                <select name="status" id="status">
-                    <option value="one">-Select status-</option>
-                    <option <?php if($_POST['status'] === 'available') echo "selected='selected'"?> value="available">Availabe</option>
-                    <option <?php if($_POST['status'] === 'not-available') echo "selected='selected'"?> value="not-available">Not-available</option>
-                </select>
-                <div id="status-invalid">Please select at least one status type.</div>
-            </div>
             <button type="submit" class="btn" name="register">Register</button>
+            <div>
+                <a href="index.php" style="float: right;margin-right: 4px;">Go back</a>
+            </div>
         </div>
     </form>
 
@@ -100,10 +102,11 @@
         $c_phone = $_POST['c_phone'];
         $location = $_POST['location'];
         $menu_type = $_POST['menu_type'];
+        $menu_item = $_POST['menu_item'];
         $occasion_type = $_POST['occasion_type'];
         $about = $_POST['about'];
         $price = $_POST['price'];
-        $c_status = $_POST['status'];
+        $c_status = 'available';
         $filename = $_FILES['image']['name'];
         
 
@@ -142,15 +145,6 @@
             </script>
             <?php
         }
-        
-        else if($c_status === "one") {
-            ?>
-            <script>
-                document.getElementById("status").classList.add("error-border");
-                document.getElementById("status-invalid").style.display = "inline";
-            </script>
-            <?php
-        }
 
         else if (empty($c_name) || empty($c_phone) || empty($location) || empty($price)) {
             ?>
@@ -161,8 +155,8 @@
         }
 
         else {
-            $sql = "INSERT INTO caterer_registration (c_name, c_phone, location, menu_type, occasion_type, price, about, filename, c_status) VALUES (?,?,?,?,?,?,?,?,?)";
-            $conn->prepare($sql)->execute([$c_name, $c_phone, $location, $menu_type, $occasion_type, $price, $about, $filename, $c_status]);
+            $sql = "INSERT INTO caterer_registration (c_name, c_phone, location, menu_type, menu_item, occasion_type, price, about, filename, c_status) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            $conn->prepare($sql)->execute([$c_name, $c_phone, $location, $menu_type, $menu_item, $occasion_type, $price, $about, $filename, $c_status]);
             ?>
             <script>
             alert("Caterer Registration successful");

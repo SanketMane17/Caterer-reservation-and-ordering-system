@@ -81,7 +81,7 @@ a:hover {
 #location-invalid,
 #cphone-invalid,
 #cname-invalid,
-#status-invalid{
+#item-invalid{
     color: red;
     font-size: 12px;
     margin-left: 3px;

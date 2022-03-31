@@ -19,7 +19,7 @@
     <link href="css/style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
     <script src="js/script.js"></script>
     <script>
-        function getCaterers(data) {
+        function getCaterers(data1, data2) {
             var xhr = new XMLHttpRequest();
 
             xhr.onreadystatechange = function() {
@@ -30,7 +30,7 @@
 
             xhr.open("POST", "available_caterers.php", true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr.send("option="+data);
+            xhr.send("option1="+data1+"&option2="+data2);
         }
     </script>
 </head>
@@ -121,11 +121,12 @@
                                 ?>">
                             </td>
                         </tr>
+                        
                         <tr>
                             <td><label for="occasion">Occasion</label>
                             </td>
                             <td>
-                            <select name="occasion" id="occasion" style="width:319px;" onchange="getCaterers(this.value)">
+                            <select name="occasion" id="occasion" style="width:319px;" >
                                 <option value="one">-Select One-</option>
                                 <option <?php if($_POST['occasion'] === 'wedding') echo "selected='selected'"?> value="wedding">Wedding</option>
                                 <option <?php if($_POST['occasion'] === 'corporate') echo "selected='selected'"?> value="corporate">Corporate</option>
@@ -133,6 +134,20 @@
                                 <option <?php if($_POST['occasion'] === 'celebration') echo "selected='selected'"?> value="celebration">Celebration Event</option>
                             </select>
                             <div id="occasion-invalid">Please Select at least one Occasion.</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="menu_type">Menu Type</label>
+                        </td>
+                        <td>
+                        <select name="menu_type" id="menu_type" style="width:319px;" onchange="getCaterers(occasion.value, this.value)">
+                            <option value="one">-Select One-</option>
+                            <option value="veg">Veg</option>
+                            <option value="non-veg">Non-veg</option>
+                            <option value="both">Both(veg/non-veg)</option>
+                            
+                        </select>
+                        <div id="menu-invalid">Please Select at least one Menu.</div>
                         </td>
                     </tr>
                     <tr>
@@ -145,20 +160,7 @@
                         <div id="caterer-invalid">Please Select at least one Caterer.</div>
                             </td>
                         </tr>
-                        <tr>
-                            <td><label for="menu">Preferred Menu</label>
-                            </td>
-                            <td>
-                            <select name="menu" id="menu" style="width:319px;">
-                                <option value="one">-Select One-</option>
-                                <option <?php if($_POST['menu'] === 'tea') echo "selected='selected'"?> value="tea">Morning and afternoon tea</option>
-                                <option <?php if($_POST['menu'] === 'lunch') echo "selected='selected'"?> value="lunch">Lunch</option>
-                                <option <?php if($_POST['menu'] === 'salads') echo "selected='selected'"?> value="salads">Salads</option>
-                                <option <?php if($_POST['menu'] === 'drinks') echo "selected='selected'"?> value="drinks">Drinks</option>
-                                <option <?php if($_POST['menu'] === 'desserts') echo "selected='selected'"?> value="desserts">Desserts</option>
-                            </select>
-                            <div id="menu-invalid">Please Select at least one Menu.</div>
-                            </td>
+                    
                         <tr>
                             <td><label for="service">Service Type</label>
                             </td>
@@ -172,6 +174,7 @@
                             <div id="service-invalid">Please Select at least one Service.</div>
                             </td>
                         </tr>
+
                         <tr>
                             <td><label for="peopleCount">Number of Peopels</label>
                             </td>
@@ -185,6 +188,7 @@
                                 <div id="peopleCount-invalid">Invalid people count.</div>
                             </td>
                         </tr>
+
                         <tr>
                             <td><label for="budget">Your Budget</label>
                         </td>
@@ -198,6 +202,7 @@
                             <div id="budget-invalid">Invalid budget.</div>
                             </td>
                         </tr>
+                        
                         <tr>
                             <td></td>
                             <td>
@@ -226,10 +231,10 @@
             <?php
         }
 
-        else if($_POST['menu'] === "one") {
+        else if($_POST['menu_type'] === "one") {
             ?>
             <script>
-                document.getElementById("menu").classList.add("error-border");
+                document.getElementById("menu_type").classList.add("error-border");
                 document.getElementById("menu-invalid").style.display = "block";
             </script>
             <?php
@@ -285,7 +290,7 @@
             $_SESSION['time'] = $_POST['time'];
             $_SESSION['occasion'] = $_POST['occasion'];
             $_SESSION['service'] = $_POST['service'];
-            $_SESSION['menu'] = $_POST['menu'];
+            $_SESSION['menu_type'] = $_POST['menu_type'];
             $_SESSION['peopleCount'] = $_POST['peopleCount'];
             $_SESSION['budget'] = $_POST['budget'];
             $_SESSION['caterer'] = $_POST['caterer'];
@@ -297,10 +302,7 @@
 
             $sql = "INSERT INTO reservation (fname, lname, address, contact, email, venue, date, time, occasion, menu, service, peoplecount, budget, caterer, uname, c_id) VALUES  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-            $conn->prepare($sql)->execute([$_SESSION['fname'], $_SESSION['lname'], $_SESSION['address'],$_SESSION['contact'], $_SESSION['email'], $_SESSION['venue'], $_SESSION['date'], $_SESSION['time'], $_SESSION['occasion'], $_SESSION['menu'], $_SESSION['service'], $_SESSION['peopleCount'], $_SESSION['budget'], $_SESSION['caterer'],  $_SESSION['username'], $row['c_id']]);
-
-            $date = date("Y/M/D");
-            $updateStatus = $conn->query("update caterer_registration, reservation set c_status = 'available' where caterer_registration.c_id = reservation.c_id AND reservation.date <> '$date'")
+            $conn->prepare($sql)->execute([$_SESSION['fname'], $_SESSION['lname'], $_SESSION['address'],$_SESSION['contact'], $_SESSION['email'], $_SESSION['venue'], $_SESSION['date'], $_SESSION['time'], $_SESSION['occasion'], $_SESSION['menu_type'], $_SESSION['service'], $_SESSION['peopleCount'], $_SESSION['budget'], $_SESSION['caterer'],  $_SESSION['username'], $row['c_id']]);
 
             ?>
             <script>

@@ -32,6 +32,20 @@
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.send("option1="+data1+"&option2="+data2);
         }
+        
+        function showMenu(data1) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("menus").innerHTML = xhr.responseText;
+                }
+            }
+
+            xhr.open("POST", "show-menu.php", true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send("caterer="+data1);
+        }
     </script>
 </head>
 
@@ -154,13 +168,18 @@
                         <td><label for="caterer">Availabe Caterers</label>
                     </td>
                     <td>
-                        <select name="caterer" id="caterer" style="width:319px;"> 
+                        <select name="caterer" id="caterer" style="width:319px;" onchange="showMenu(this.value)"> 
                             <option value="one">-Select One-</option>
                         </select>
                         <div id="caterer-invalid">Please Select at least one Caterer.</div>
                             </td>
-                        </tr>
-                    
+                    </tr>
+                    <tr>
+                        <td><label for="menus">Menu List</label></td>
+                        <td><div id="menus">
+                        
+                        </div></td>
+                    </tr>
                         <tr>
                             <td><label for="service">Service Type</label>
                             </td>
@@ -296,13 +315,21 @@
             $_SESSION['caterer'] = $_POST['caterer'];
             $caterer = $_POST['caterer'];
 
-            $selectCID = $conn->query("SELECT c_id FROM caterer_registration WHERE c_name = '$caterer'");
+            $selectCID = $conn->query("SELECT r_id, caterer_registration.c_id FROM caterer_registration, reservation WHERE caterer_registration.c_id = reservation.c_id AND c_name = '$caterer'");
 
             $row = $selectCID->fetch(PDO::FETCH_ASSOC);
 
             $sql = "INSERT INTO reservation (fname, lname, address, contact, email, venue, date, time, occasion, menu, service, peoplecount, budget, caterer, uname, c_id) VALUES  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             $conn->prepare($sql)->execute([$_SESSION['fname'], $_SESSION['lname'], $_SESSION['address'],$_SESSION['contact'], $_SESSION['email'], $_SESSION['venue'], $_SESSION['date'], $_SESSION['time'], $_SESSION['occasion'], $_SESSION['menu_type'], $_SESSION['service'], $_SESSION['peopleCount'], $_SESSION['budget'], $_SESSION['caterer'],  $_SESSION['username'], $row['c_id']]);
+
+
+            // Update status of caterer
+            $cid = $row['c_id'];
+            $rid = $row['r_id'];
+            $sql = "UPDATE caterer_registration, reservation SET c_status = 'not-available' WHERE caterer_registration.c_id = reservation.c_id and caterer_registration.c_id = '$cid' AND r_id = '$rid'";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
 
             ?>
             <script>

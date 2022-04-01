@@ -538,3 +538,12 @@ footer{
 .report td {
     background-color: white;
 }
+
+#menus {
+    width: 308px;
+    margin-left: 1px;
+    border: 1px solid;
+    padding: 4px;
+    min-height: 22px;
+    background-color: white;
+}

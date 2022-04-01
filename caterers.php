@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -65,8 +66,7 @@ session_start();
     <section class="caterers">
     <?php
     include("config.php");
-    $currentDate = date("Y/d/m");
-    $sql = $conn->query("SELECT * FROM caterer_registration");
+    $sql = $conn->query("SELECT DISTINCT c_name,location,c_status,c_phone,about,price,menu_type,occasion_type, filename FROM caterer_registration");
     $count = $sql->rowCount();
     if($count > 0) {
 

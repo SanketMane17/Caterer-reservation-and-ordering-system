@@ -1,5 +1,6 @@
 <?php
     include 'config.php';
+    error_reporting(0);
     $occasion = $_POST['option1'];
     $menu_type = $_POST['option2'];
     $currentDate = date("Y/M/D");

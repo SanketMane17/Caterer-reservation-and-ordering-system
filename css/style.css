@@ -187,13 +187,14 @@ body {
 }
 
 .schedule-btn {
-    width: 110px;
     padding: 8px;
     width: 110px;
     padding: 8px;
     background: #e1f4ee;
     border: 1px solid black;
     cursor: pointer;
+    margin-left: 10px;
+    font-size:16px;
 }
 
 .schedule-btn:hover {

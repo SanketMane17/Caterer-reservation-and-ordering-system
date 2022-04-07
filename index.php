@@ -14,7 +14,6 @@ include("config.php");
     <title>Catering Services</title>
     <link href="css/style.css?v=<?php echo time(); ?>" rel="stylesheet" type="text/css" />
     <script src="js/script.js"></script>
-    </script>
 </head>
 
 <body>
@@ -107,11 +106,11 @@ include("config.php");
                     <?php
                     if (!isset($_SESSION['username'])) {
                     ?>
-                        <a href="caterer_registration.php"><button class="schedule-btn" style="width: 138px;margin-left: 10px;">Caterer Registration</button></a>
+                        <a href="caterer_registration.php"><button class="schedule-btn" style="width: 167px;margin-left: 10px;font-size:16px;">Caterer Registration</button></a>
                     <?php
                     } else {
                     ?>
-                        <a href="reservation.php"><button class="schedule-btn">Schedule Now</button></a>
+                        <a href="reservation.php"><button class="schedule-btn" style="width: 130px;">Schedule Now</button></a>
                     <?php
                     }
                     ?>

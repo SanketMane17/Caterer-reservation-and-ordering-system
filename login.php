@@ -53,6 +53,19 @@
         
         if ($username === $row['uname'] && $password === $row['password']) {
             $_SESSION['password'] = $row['password'];
+
+            $currentDate = date("Y/M/D");;
+            // Update status of caterer
+
+            $selectCID = $conn->query("SELECT distinct(caterer_registration.c_id), c_status FROM caterer_registration, reservation WHERE caterer_registration.c_id = reservation.c_id;");
+
+            while($row = $selectCID->fetch(PDO::FETCH_ASSOC)) {
+                $cid = $row['c_id'];
+                $sql = "UPDATE caterer_registration, reservation SET c_status = 'not-available' WHERE caterer_registration.c_id = reservation.c_id and caterer_registration.c_id = '$cid'";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+            }
+
             header("Location:index.php");
         }
         else if($username !== $row['uname']){

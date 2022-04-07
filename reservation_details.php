@@ -314,23 +314,10 @@
             $_SESSION['budget'] = $_POST['budget'];
             $_SESSION['caterer'] = $_POST['caterer'];
             $caterer = $_POST['caterer'];
-
-            $selectCID = $conn->query("SELECT r_id, caterer_registration.c_id FROM caterer_registration, reservation WHERE caterer_registration.c_id = reservation.c_id AND c_name = '$caterer'");
-
-            $row = $selectCID->fetch(PDO::FETCH_ASSOC);
-
+            
             $sql = "INSERT INTO reservation (fname, lname, address, contact, email, venue, date, time, occasion, menu, service, peoplecount, budget, caterer, uname, c_id) VALUES  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             $conn->prepare($sql)->execute([$_SESSION['fname'], $_SESSION['lname'], $_SESSION['address'],$_SESSION['contact'], $_SESSION['email'], $_SESSION['venue'], $_SESSION['date'], $_SESSION['time'], $_SESSION['occasion'], $_SESSION['menu_type'], $_SESSION['service'], $_SESSION['peopleCount'], $_SESSION['budget'], $_SESSION['caterer'],  $_SESSION['username'], $row['c_id']]);
-
-
-            // Update status of caterer
-            $cid = $row['c_id'];
-            $rid = $row['r_id'];
-            $sql = "UPDATE caterer_registration, reservation SET c_status = 'not-available' WHERE caterer_registration.c_id = reservation.c_id and caterer_registration.c_id = '$cid' AND r_id = '$rid'";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-
             ?>
             <script>
             alert("Reservation Successful...Please Confirm Your Order...");

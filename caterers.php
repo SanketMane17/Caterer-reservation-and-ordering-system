@@ -71,6 +71,9 @@ error_reporting(0);
     if($count > 0) {
 
         while ($row = $sql->fetch(PDO::FETCH_ASSOC)) { 
+            $caterer = $row['c_name'];
+            $sqlOrders = $conn->query("select count(c_name) as count,c_name, date from caterer_registration, reservation where caterer_registration.c_id = reservation.c_id and c_name = '$caterer';");
+
         ?>
         <div class="caterer">
             <div class="img">
@@ -83,6 +86,7 @@ error_reporting(0);
                 <h4>Rs.<?php echo $row['price'];?> onwards</h4>
                 <p><?php echo $row['about'];?></p>
                 <p><img style="width: 24px;" src="img/phone.png"><?php echo $row['c_phone'];?></p>
+                <p style="font-weight: bold;">Total Orders Peding : <?php echo $sqlOrders->fetch(PDO::FETCH_ASSOC)['count'];?></p>
                 <p id="status">Status : <?php echo ucfirst($row['c_status']);?></p>
             </div>
         </div>
